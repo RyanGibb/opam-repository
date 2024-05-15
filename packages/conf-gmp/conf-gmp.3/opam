@@ -4,12 +4,15 @@ homepage: "http://gmplib.org/"
 bug-reports: "https://github.com/ocaml/opam-repository/issues"
 license: "GPL-1.0-or-later"
 build: [
-  ["sh" "-exc" "cc -c $CFLAGS -I/usr/local/include test.c"] {os != "macos"}
+  ["sh" "-exc" "cc -c $CFLAGS -I/usr/local/include test.c"] {os != "macos" & os-distribution != "nixos"}
   [
     "sh"
     "-exc"
     "cc -c $CFLAGS -I/opt/homebrew/include -I/opt/local/include -I/usr/local/include test.c"
-  ] {os = "macos"}
+  ] {os = "macos" & os-distribution != "nixos"}
+]
+depends: [
+  "nix" {os-distribution = "nixos" & post}
 ]
 depexts: [
   ["libgmp-dev"] {os-family = "debian"}

@@ -3,9 +3,10 @@ maintainer: "Martin Lucina <martin@lucina.net>"
 authors: ["Paul Moore"]
 homepage: "https://github.com/seccomp/libseccomp"
 license: "LGPL-2.1-only"
-build: ["pkg-config" "--print-errors" "--exists" "libseccomp"]
+build: ["pkg-config" "--print-errors" "--exists" "libseccomp"] {os-distribution != "nixos"}
 depends: [
   "conf-pkg-config" {build}
+  "nix" {os-distribution = "nixos" & post}
 ]
 depexts: [
   ["libseccomp-dev"] {os-family = "alpine"}
